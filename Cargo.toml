@@ -1,0 +1,8 @@
+[package]
+name = "rf"
+version = "0.1.0"
+authors = ["Matthias Diener <mdiener@illinois.edu>"]
+
+[dependencies]
+walkdir = "2"
+regex = "1"
