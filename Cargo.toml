@@ -1,5 +1,5 @@
 [package]
-name = "rf"
+name = "ripfind"
 version = "0.1.0"
 authors = ["Matthias Diener <mdiener@illinois.edu>"]
 description = "A fast and lean replacement for the find command."
@@ -11,3 +11,8 @@ repository = "https://github.com/matthiasdiener/ripfind"
 [dependencies]
 walkdir = "2"
 regex = "1"
+
+[[bin]]
+bench = false
+path = "src/main.rs"
+name = "rf"
