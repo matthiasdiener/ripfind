@@ -19,7 +19,6 @@ fn main() {
     let mut dirstr = ".";
 
     if args.len() > 2 {
-        println!("{:?}", args[2]);
         dirstr =  &args[2];
     }
 
