@@ -2,6 +2,11 @@
 name = "rf"
 version = "0.1.0"
 authors = ["Matthias Diener <mdiener@illinois.edu>"]
+description = "A fast and lean replacement for the find command."
+license = "MIT"
+documentation = "https://github.com/matthiasdiener/ripfind"
+homepage = "https://github.com/matthiasdiener/ripfind"
+repository = "https://github.com/matthiasdiener/ripfind"
 
 [dependencies]
 walkdir = "2"
