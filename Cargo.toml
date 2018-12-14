@@ -1,6 +1,6 @@
 [package]
 name = "ripfind"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Matthias Diener <matthias.diener@gmail.com>"]
 description = "A fast and lean replacement for the find command."
 license = "MIT"
@@ -12,6 +12,8 @@ repository = "https://github.com/matthiasdiener/ripfind"
 walkdir = "2"
 regex = "1"
 getopts = "0.2"
+colored = "1.6"
+atty = "0.2"
 
 [[bin]]
 bench = false
