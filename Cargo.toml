@@ -1,7 +1,7 @@
 [package]
 name = "ripfind"
-version = "0.1.0"
-authors = ["Matthias Diener <mdiener@illinois.edu>"]
+version = "0.1.1"
+authors = ["Matthias Diener <matthias.diener@gmail.com>"]
 description = "A fast and lean replacement for the find command."
 license = "MIT"
 documentation = "https://github.com/matthiasdiener/ripfind"

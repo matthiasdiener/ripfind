@@ -53,7 +53,7 @@ dependencies = [
 
 [[package]]
 name = "ripfind"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "regex 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "walkdir 2.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
