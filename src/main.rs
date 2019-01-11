@@ -18,11 +18,17 @@ fn print_usage(program: &str, opts: Options) {
     print!("{}", opts.usage(&brief));
 }
 
+fn print_version() {
+    const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
+    print!("Ripfind {}\n", VERSION.unwrap_or("unknown"));
+}
+
 
 fn add_options(opts: &mut Options) {
     opts.optflag("i", "ignore-case", "Search case insensitively.");
     opts.optflag("s", "sensitive-case", "Search case sensitively.");
     opts.optflag("h", "help", "Print this help menu.");
+    opts.optflag("v", "version", "Print version.");
     opts.optopt("", "color", "Color output.", "WHEN");
 }
 
@@ -40,6 +46,11 @@ fn parse_options() -> (String, String, bool) {
 
     if matches.opt_present("h") {
         print_usage(&program, opts);
+        std::process::exit(0);
+    }
+
+    if matches.opt_present("v") {
+        print_version();
         std::process::exit(0);
     }
 
