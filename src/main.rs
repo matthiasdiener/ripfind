@@ -14,7 +14,7 @@ use std::env;
 
 
 fn print_usage(program: &str, opts: Options) {
-    let brief = format!("Usage: {} <regex> [dir] [options]", program);
+    let brief = format!("Usage: {} [regex] [dir] [options]", program);
     print!("{}", opts.usage(&brief));
 }
 
@@ -43,12 +43,6 @@ fn parse_options() -> (String, String, bool) {
         std::process::exit(0);
     }
 
-    if matches.free.is_empty() {
-        println!("Error: no pattern specified.");
-        print_usage(&program, opts);
-        std::process::exit(1);
-    }
-
     let color_output = if matches.opt_present("color") {
             match matches.opt_str("color").unwrap().as_ref() {
                 "never" => false,
@@ -60,7 +54,7 @@ fn parse_options() -> (String, String, bool) {
 
     let ignore_case = if matches.opt_present("i") { true } else { false };
 
-    let re = format!("{}({})", if ignore_case {"(?i)"} else {""}, matches.free[0].clone());
+    let re = format!("{}({})", if ignore_case {"(?i)"} else {""}, if matches.free.len() > 0 {matches.free[0].clone()} else {String::from(".")});
 
     let dir = if matches.free.len() > 1 {matches.free[1].clone()} else {String::from(".")};
 
