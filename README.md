@@ -1,10 +1,18 @@
 # ripfind
 A fast and lean replacement for the find command, modeled after the ripgrep package (https://github.com/BurntSushi/ripgrep).
 
+## Installation
+
+Install with Cargo (https://crates.io):
+
+```
+$ cargo install ripfind
+```
+
 ## Usage:
 
 ```
-rf [regex] [dir]
+$ rf [regex] [dir]
 ```
 
 Prints all files matching `<regex>` in the directory `<dir>`.
