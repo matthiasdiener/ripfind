@@ -1,10 +1,3 @@
-extern crate walkdir;
-extern crate regex;
-extern crate getopts;
-extern crate colored;
-extern crate atty;
-
-
 use colored::*;
 use getopts::Options;
 use walkdir::WalkDir;
@@ -20,7 +13,7 @@ fn print_usage(program: &str, opts: Options) {
 
 fn print_version() {
     const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
-    print!("Ripfind {}\n", VERSION.unwrap_or("unknown"));
+    println!("Ripfind v{}", VERSION.unwrap_or("unknown"));
 }
 
 
@@ -63,13 +56,13 @@ fn parse_options() -> (String, String, bool) {
             }
         } else { atty::is(atty::Stream::Stdout) };
 
-    let ignore_case = if matches.opt_present("i") { true } else { false };
+    let ignore_case = matches.opt_present("i");
 
-    let re = format!("{}({})", if ignore_case {"(?i)"} else {""}, if matches.free.len() > 0 {matches.free[0].clone()} else {String::from(".")});
+    let re = format!("{}({})", if ignore_case {"(?i)"} else {""}, if !matches.free.is_empty() {matches.free[0].clone()} else {String::from(".")});
 
     let dir = if matches.free.len() > 1 {matches.free[1].clone()} else {String::from(".")};
 
-    return(re, dir, color_output);
+    (re, dir, color_output)
 }
 
 

@@ -1,12 +1,13 @@
 [package]
 name = "ripfind"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["Matthias Diener <matthias.diener@gmail.com>"]
 description = "A fast and lean replacement for the find command."
 license = "MIT"
 documentation = "https://github.com/matthiasdiener/ripfind"
 homepage = "https://github.com/matthiasdiener/ripfind"
 repository = "https://github.com/matthiasdiener/ripfind"
+edition = "2018"
 
 [dependencies]
 walkdir = "2"
