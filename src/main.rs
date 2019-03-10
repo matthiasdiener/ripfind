@@ -1,90 +1,10 @@
+use crate::options::parse_options;
 use colored::*;
-use getopts::Options;
 use regex::Captures;
 use regex::Regex;
-use std::env;
 use walkdir::WalkDir;
 
-fn print_usage(program: &str, opts: Options) {
-    let brief = format!("Usage: {} [regex] [dir] [options]", program);
-    print!("{}", opts.usage(&brief));
-}
-
-fn print_version() {
-    const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
-    println!("Ripfind v{}", VERSION.unwrap_or("unknown"));
-}
-
-fn add_options(opts: &mut Options) {
-    opts.optflag("i", "ignore-case", "Search case insensitively.");
-    opts.optflag("s", "sensitive-case", "Search case sensitively.");
-    opts.optflag("h", "help", "Print this help menu.");
-    opts.optflag("v", "version", "Print version.");
-    opts.optopt("", "color", "Color output.", "WHEN");
-}
-
-fn parse_options() -> (String, String, bool) {
-    let args: Vec<String> = env::args().collect();
-    let program = args[0].clone();
-    let mut opts = Options::new();
-    add_options(&mut opts);
-
-    let matches = match opts.parse(&args[1..]) {
-        Ok(m) => m,
-        Err(_f) => {
-            print_usage(&program, opts);
-            std::process::exit(1)
-        }
-    };
-
-    if matches.opt_present("h") {
-        print_usage(&program, opts);
-        std::process::exit(0);
-    }
-
-    if matches.opt_present("v") {
-        print_version();
-        std::process::exit(0);
-    }
-
-    let color_output = if matches.opt_present("color") {
-        match matches.opt_str("color").unwrap().as_ref() {
-            "never" => false,
-            "always" => true,
-            "auto" => atty::is(atty::Stream::Stdout),
-            _ => {
-                println!(
-                    "Error: unknown color mode '{}' specified.\n",
-                    matches.opt_str("color").unwrap()
-                );
-                print_usage(&program, opts);
-                std::process::exit(1)
-            }
-        }
-    } else {
-        atty::is(atty::Stream::Stdout)
-    };
-
-    let ignore_case = matches.opt_present("i");
-
-    let re = format!(
-        "{}({})",
-        if ignore_case { "(?i)" } else { "" },
-        if !matches.free.is_empty() {
-            matches.free[0].clone()
-        } else {
-            String::from(".")
-        }
-    );
-
-    let dir = if matches.free.len() > 1 {
-        matches.free[1].clone()
-    } else {
-        String::from(".")
-    };
-
-    (re, dir, color_output)
-}
+mod options;
 
 fn main() {
     let (re, dir, color_output) = parse_options();
