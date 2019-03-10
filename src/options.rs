@@ -12,6 +12,7 @@ fn print_version() {
 }
 
 fn add_options(opts: &mut Options) {
+    opts.long_only(true);
     opts.optflag("i", "ignore-case", "Search case insensitively.");
     opts.optflag("s", "sensitive-case", "Search case sensitively.");
     opts.optflag("h", "help", "Print this help menu.");
@@ -22,9 +23,15 @@ fn add_options(opts: &mut Options) {
         "Color output.\nWHEN can be never, always, or auto.",
         "<WHEN>",
     );
+    opts.optopt(
+        "",
+        "type",
+        "Filter file type.\n<TYPE> can be:\nd - directory\nf - regular file\nl - symbolic link.",
+        "<TYPE>",
+    );
 }
 
-pub fn parse_options() -> (String, String, bool) {
+pub fn parse_options() -> (String, String, bool, String) {
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
     let mut opts = Options::new();
@@ -84,5 +91,23 @@ pub fn parse_options() -> (String, String, bool) {
         String::from(".")
     };
 
-    (re, dir, color_output)
+    let filetype = if matches.opt_present("type") {
+        match matches.opt_str("type").unwrap().as_ref() {
+            "f" => String::from("f"),
+            "d" => String::from("d"),
+            "l" => String::from("l"),
+            _ => {
+                println!(
+                    "Error: unknown file type '{}' specified.\n",
+                    matches.opt_str("type").unwrap()
+                );
+                print_usage(&program, opts);
+                std::process::exit(1)
+            }
+        }
+    } else {
+        String::from("")
+    };
+
+    (re, dir, color_output, filetype)
 }
