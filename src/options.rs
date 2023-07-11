@@ -1,5 +1,6 @@
 use getopts::Options;
 use std::env;
+use std::io::IsTerminal;
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} [regex] [dir] [options]", program);
@@ -59,7 +60,7 @@ pub fn parse_options() -> (String, String, bool, String) {
         match matches.opt_str("color").unwrap().as_ref() {
             "never" => false,
             "always" => true,
-            "auto" => atty::is(atty::Stream::Stdout),
+            "auto" => std::io::stdout().is_terminal(),
             _ => {
                 println!(
                     "Error: unknown color mode '{}' specified.\n",
@@ -70,7 +71,7 @@ pub fn parse_options() -> (String, String, bool, String) {
             }
         }
     } else {
-        atty::is(atty::Stream::Stdout)
+        std::io::stdout().is_terminal()
     };
 
     let ignore_case = matches.opt_present("i");

@@ -1,5 +1,5 @@
 use crate::options::parse_options;
-use colored::*;
+use colored::Colorize;
 use regex::Captures;
 use regex::Regex;
 use walkdir::DirEntry;

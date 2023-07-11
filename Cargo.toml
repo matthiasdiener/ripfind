@@ -14,8 +14,7 @@ edition = "2021"
 walkdir = "2"
 regex = "1"
 getopts = "0.2"
-colored = "1.6"
-atty = "0.2"
+colored = "2"
 
 [[bin]]
 bench = false
