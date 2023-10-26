@@ -1,6 +1,6 @@
 [package]
 name = "ripfind"
-version = "0.4.1"
+version = "0.4.2"
 readme = "README.md"
 authors = ["Matthias Diener <matthias.diener@gmail.com>"]
 description = "A fast and lean replacement for the find command."
